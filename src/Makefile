@@ -1,2 +1,2 @@
 all:
-	g++ main.cc DummySearch.cc
+	g++ main.cc DummySearch.cc -lboost_regex
