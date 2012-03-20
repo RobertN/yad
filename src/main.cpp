@@ -12,8 +12,7 @@ int main(int argc, char *argv[])
 	searchable = new DummySearch();
 	searchable->search(argv[1]);
 
-	std::cout << "Result: " << std::endl <<
-		searchable->getResult() << std::endl;
+	std::cout << searchable->getResult() << std::endl;
 
 	delete searchable;
 }
