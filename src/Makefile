@@ -1,2 +1,2 @@
 all:
-	g++ -g main.cpp DummySearch.cpp -lboost_regex
+	g++ -g main.cpp NetworkConnection.cpp TydaSearch.cpp -lboost_regex

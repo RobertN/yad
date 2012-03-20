@@ -1,5 +1,6 @@
 #include <iostream>
-#include "DummySearch.hpp"
+#include "NetworkConnection.hpp"
+#include "TydaSearch.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
 
 	// TODO: Check what site we should search from
 
-	searchable = new DummySearch();
+	searchable = new TydaSearch();
 	searchable->search(argv[1]);
 
 	std::cout << searchable->getResult() << std::endl;

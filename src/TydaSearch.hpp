@@ -12,7 +12,7 @@ class TydaSearch: public ISearchable
 		int search(std::string search_string);
 		std::string getResult();
     private:
-        std::string result;
+		std::string results;
 };
 
 #endif
