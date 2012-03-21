@@ -80,9 +80,9 @@ size_t NetworkConnection::send(std::string message)
 
 std::string NetworkConnection::recv(size_t bytes)
 {
-	char *buf = new char[bytes];
+	char buf[bytes];
 
-	int recvd_bytes = ::recv(m_socket, buf, bytes, 0);
+	int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
 	if (recvd_bytes == -1)
 	{
 		perror("recv");
