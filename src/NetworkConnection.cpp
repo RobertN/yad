@@ -65,7 +65,7 @@ size_t NetworkConnection::send(std::string message)
 	if (m_connected)
 		return -1;
 
-	int sent_bytes = ::send(m_socket, "c", 1, 0);
+	int sent_bytes = ::send(m_socket, message.c_str(), message.length(), 0);
 	if (sent_bytes == -1)
 	{
 		perror("send");

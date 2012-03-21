@@ -21,17 +21,19 @@ int TydaSearch::search(std::string search_string)
 
 	NetworkConnection connection;
 
-	if (connection.establish("www.google.se", 80))
+	if (connection.establish("tyda.se", 80))
 	{
 		std::cout << "Connected to tyda.se" << std::endl;
 	}
 
-	//std::string query = "GET /search?form=1&w=hej&wlng=&x=0&y=0 HTTP/1.1\r\n\r\n\r\n";
-	std::string query = "GET /search?form=1&w=hej&wlng=&x=0&y=0 HTTP/1.1\r\n\r\n\r\n";
+	std::string query = "GET /search?form=1&w=hej&w_lang=&x=0&y=0 HTTP/1.1\r\n";
+    query += "Host: tyda.se\r\n";
+    query += "\r\n";
 	connection.send(query);
 
 	std::string txt = connection.recv(100);
 
+    std::cout << txt;
     //TODO: should this be in getResult() ?
     //<a id="tyda_transR7" href="/search/hey">hey</a>
     //const boost::regex exp("<a id=\"(tyda_transR[^\"]*)\" href=\"[^\"]*\">([^<]*)");
