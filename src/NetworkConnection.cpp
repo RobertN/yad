@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 NetworkConnection::NetworkConnection()
+	: m_connected(false)
 {
 }
 

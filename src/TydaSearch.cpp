@@ -60,6 +60,6 @@ int TydaSearch::search(std::string search_string)
 
 std::string TydaSearch::getResult()
 {
-	std::string response = connection.recv(100);
+	std::string response = m_connection.recv(100);
 	return response;
 }
