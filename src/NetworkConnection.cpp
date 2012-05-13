@@ -5,6 +5,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include "NetworkConnection.hpp"
+#include <unistd.h>
 
 NetworkConnection::NetworkConnection()
 {
@@ -15,7 +16,6 @@ NetworkConnection::~NetworkConnection()
 	if (m_connected)
 	{
 		close(m_socket);
-
 		m_connected = false;
 	}
 }
@@ -77,14 +77,14 @@ size_t NetworkConnection::send(std::string message)
 
 std::string NetworkConnection::recv(size_t bytes)
 {
+	fprintf(stderr, "NetworkConnection::recv\n");
+
 	char buf[bytes];
 	int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
 	if (recvd_bytes == -1)
 	{
 		perror("recv");
-
 		return std::string("");
 	}
-
 	return std::string(buf);
 }
