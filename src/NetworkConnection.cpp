@@ -22,6 +22,8 @@ NetworkConnection::~NetworkConnection()
 
 bool NetworkConnection::establish(std::string hostname, unsigned int port)
 {
+	fprintf(stderr, "NetworkConnection::establish\n");
+
 	struct sockaddr_in addr;
 	struct hostent *hp;
 
@@ -33,8 +35,6 @@ bool NetworkConnection::establish(std::string hostname, unsigned int port)
 		return false;
 	}
 
-	std::cout << "Resolved hostname" << std::endl;
-
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = ((struct in_addr *)(hp->h_addr))->s_addr;
 	addr.sin_port = htons(port);
@@ -43,7 +43,6 @@ bool NetworkConnection::establish(std::string hostname, unsigned int port)
 	if (m_socket == -1)
 	{
 		perror("socket");
-
 		return false;
 	}
 
@@ -51,10 +50,9 @@ bool NetworkConnection::establish(std::string hostname, unsigned int port)
 	if (connected == -1)
 	{
 		perror("connect");
-
 		return false;
 	}
-
+	m_connected = true;
 	return true;
 }
 
@@ -62,26 +60,24 @@ size_t NetworkConnection::send(std::string message)
 {
 	fprintf(stderr, "NetworkConnection::send\n");
 
-	if (m_connected)
+	if (!m_connected)
+	{
+		fprintf(stderr, "Not connected\n");
 		return -1;
+	}
 
 	int sent_bytes = ::send(m_socket, message.c_str(), message.length(), 0);
 	if (sent_bytes == -1)
 	{
 		perror("send");
-
 		return -1;
 	}
-
-	std::cout << "sent bytes: " << sent_bytes << std::endl;
-
 	return sent_bytes;
 }
 
 std::string NetworkConnection::recv(size_t bytes)
 {
 	char buf[bytes];
-
 	int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
 	if (recvd_bytes == -1)
 	{
