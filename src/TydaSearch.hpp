@@ -2,6 +2,7 @@
 #define TYDASEARCH_HPP
 
 #include "ISearchable.hpp"
+#include "NetworkConnection.hpp"
 
 class TydaSearch: public ISearchable
 {
@@ -13,6 +14,7 @@ class TydaSearch: public ISearchable
 		std::string getResult();
     private:
 		std::string results;
+		NetworkConnection m_connection;
 };
 
 #endif
