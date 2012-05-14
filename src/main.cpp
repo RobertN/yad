@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
     ISearchable *searchable;
 
 	// TODO: Check what site we should search from
-    if (argc == 2){
+    if (argc == 2)
+    {
         //TODO Standard search
         //TODO: should we really have dynamic allocation???
         searchable = new TydaSearch();
@@ -19,9 +20,11 @@ int main(int argc, char *argv[])
         delete searchable;
 
     }
-    else if (argc == 3){
+    else if (argc == 3)
+    {
         //TODO Check flags for search options
-        if (argv[1][0] != '-'){
+        if (argv[1][0] != '-')
+        {
             //TODO error message
             std::cout << "Error: Too many arguments or no flags!" << std::endl;
             return 1;
@@ -37,7 +40,7 @@ int main(int argc, char *argv[])
                 case 'd' : searchable = new DummySearch();
                            break;
                 default : //TODO error message
-                          std::cout << "Error: Flag " 
+                          std::cout << "Error: Flag "
                               << "\"" << argv[1][i] << "\""
                               << " dose not exist!" << std::endl;
                           return 1;
@@ -49,7 +52,8 @@ int main(int argc, char *argv[])
             delete searchable;
             i++;
         }
-        if (i == 1){
+        if (i == 1)
+        {
             //TODO error message
             std::cout << "Error: No flags!" << std::endl;
         }
@@ -60,7 +64,6 @@ int main(int argc, char *argv[])
         std::cout << "Error: Too many or no arguments!" << std::endl;
         return 1;
     }
-
 
     return 0;
 }
