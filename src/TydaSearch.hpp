@@ -16,6 +16,9 @@ public:
 	std::string getResult();
 
 private:
+	int makeSearchRequest(std::string search_string);
+	std::string retrieveSearchResponse();
+
 	std::string m_results;
 	NetworkConnection m_connection;
 	ResultBuilder m_result_builder;

@@ -15,35 +15,42 @@ TydaSearch::~TydaSearch()
 {
 }
 
+int TydaSearch::makeSearchRequest(std::string search_string)
+{
+	TydaQueryBuilder tyda_builder;
+	tyda_builder.setSearchKey(search_string);
+	if (m_connection.send(tyda_builder.generateQuery()) > 0)
+		return 1;
+	else
+		return -1;
+}
+
+std::string TydaSearch::retrieveSearchResponse()
+{
+	std::stringstream buffer;
+	while (m_connection.connected() && buffer.str().length() < 1024*30)
+	{
+		buffer << m_connection.recv(1024);
+	}
+	return buffer.str();
+}
+
 int TydaSearch::search(std::string search_string)
 {
-	std::cout << "Searching for: " << search_string << std::endl;
-
-	if (m_connection.establish("tyda.se", 80))
+	if (!m_connection.establish("tyda.se", 80))
 	{
-		TydaQueryBuilder tyda_builder;
-		tyda_builder.setSearchKey(search_string);
-		m_connection.send(tyda_builder.generateQuery());
-	}
-	else
-	{
+		std::cerr << "Failed to establish connection to: tyda.se" << std::endl;
 		return EXIT_FAILURE;
 	}
 
-	// Load HTML file 
-	// TODO: maybe we should use some more fancy lib for this...i
-	std::string txt("");
-	int i=0;//TODO REMOVE THIS VARIABLE
-	while(i < 30)
+	if (!makeSearchRequest(search_string))
 	{
-		i++;
-		std::string buf = m_connection.recv(1024);
-		if (buf.length() == 0)
-			break;
-
-		txt += buf;
+		std::cerr << "Failed to perform search request" << std::endl;
+		return EXIT_FAILURE;
 	}
-	//std::cout << txt;
+
+	std::string txt = retrieveSearchResponse();
+
 	/*
 	//TODO: should this be in getResult() ?
 	//<a id="tyda_transR7" href="/search/hey">hey</a>
