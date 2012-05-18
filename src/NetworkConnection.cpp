@@ -59,13 +59,8 @@ bool NetworkConnection::establish(std::string hostname, unsigned int port)
 
 size_t NetworkConnection::send(std::string message)
 {
-	fprintf(stderr, "NetworkConnection::send\n");
-
-	if (!m_connected)
-	{
-		fprintf(stderr, "Not connected\n");
-		return -1;
-	}
+	if (!connected())
+		return NOT_CONNECTED;
 
 	int sent_bytes = ::send(m_socket, message.c_str(), message.length(), 0);
 	if (sent_bytes == -1)
@@ -78,8 +73,6 @@ size_t NetworkConnection::send(std::string message)
 
 std::string NetworkConnection::recv(size_t bytes)
 {
-	fprintf(stderr, "NetworkConnection::recv\n");
-
 	char buf[bytes];
 	int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
 	if (recvd_bytes == -1)

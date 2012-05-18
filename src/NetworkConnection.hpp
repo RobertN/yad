@@ -6,9 +6,15 @@
 class NetworkConnection
 {
 	public:
-		NetworkConnection();
-		~NetworkConnection();
+		enum ConnectionErrors
+		{
+			NOT_CONNECTED = -1
+		};
 
+		NetworkConnection();
+		virtual ~NetworkConnection();
+
+		bool connected() { return m_connected; }
 		bool establish(std::string hostname, unsigned int port);
 		void disconnect();
 
