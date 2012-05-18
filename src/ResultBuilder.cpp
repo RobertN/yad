@@ -3,9 +3,9 @@
 #include <iostream>
 #include <sstream>
 
-std::string ResultBuilder::getResultString()
+std::string ResultBuilder::getResultString() const
 {
-	std::vector< ResultEntry >::iterator it = m_entries.begin();
+	std::vector< ResultEntry >::const_iterator it = m_entries.begin();
 	std::stringstream result_stream;
 	for ( ; it != m_entries.end(); it++)
 		result_stream << (*it).first << ": " << (*it).second << std::endl;

@@ -9,7 +9,7 @@ typedef std::pair< std::string, std::string > ResultEntry;
 class ResultBuilder
 {
 public:
-	std::string getResultString();
+	std::string getResultString() const;
 	void addResult(std::string type, std::string value);
 	void clear() { m_entries.clear(); }
 private:
