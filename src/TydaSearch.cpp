@@ -1,10 +1,9 @@
-#include <iostream>
+#include <sstream>
 #include "boost/regex.hpp"
 #include "ISearchable.hpp"
 #include "TydaSearch.hpp"
 #include "QueryBuilder.hpp"
 #include "ResultBuilder.hpp"
-
 #include "NetworkConnection.hpp"
 
 TydaSearch::TydaSearch()
