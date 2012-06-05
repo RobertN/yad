@@ -91,7 +91,7 @@ std::string TydaQueryBuilder::generateHeaders()
 {
 	std::string headers;
 	headers  = "Host: tyda.se\r\n";
-	headers += "Connection:c close\r\n";
+	headers += "Connection: close\r\n";
 	headers += "\r\n";
 	return headers;
 }
