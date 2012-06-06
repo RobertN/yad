@@ -1,6 +1,7 @@
 #include <iostream>
 #include "NetworkConnection.hpp"
 #include "TydaSearch.hpp"
+#include "GoogleTranslateSearch.hpp"
 #include "DummySearch.hpp"
 
 
@@ -36,6 +37,8 @@ int main(int argc, char *argv[])
 
 				case 't' : searchable = new TydaSearch();
 					   break;
+				case 'g' : searchable = new GoogleTranslateSearch();
+					   break;
 				case 'd' : searchable = new DummySearch();
 					   break;
 				default : //TODO error message
@@ -64,7 +67,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		//TODO error message
-		std::cout << "Error: Too many or no arguments!" << std::endl;
+		std::cout << "Usage: " << argv[0] << "-[tgd] Search_word" << std::endl;
 		return 1;
 	}
 
