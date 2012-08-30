@@ -3,7 +3,8 @@
 #include "TydaSearch.hpp"
 #include "GoogleTranslateSearch.hpp"
 #include "DummySearch.hpp"
-
+using std::cout;
+using std::endl;
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
 		//TODO: should we really have dynamic allocation???
 		searchable = new TydaSearch();
 		searchable->search(argv[1]);
-		std::cout << searchable->getResult() << std::endl;
+		cout << searchable->getResult() << endl;
 		delete searchable;
 	}
 	else if (argc == 3)
@@ -26,47 +27,41 @@ int main(int argc, char *argv[])
 		if (argv[1][0] != '-')
 		{
 			//TODO error message
-			std::cout << "Error: Too many arguments or no flags!" << std::endl;
+			cout << "Error: Too many arguments or no flags!" << endl;
 			return 1;
 		}
 		int i = 1;
 		while (argv[1][i] != '\0')
 		{
 			switch(argv[1][i])
-			{ //TODO: should we really have dynamic allocation???
-
-				case 't' : searchable = new TydaSearch();
+			{
+				case 't':
+								searchable = new TydaSearch();
 					   break;
-				case 'g' : searchable = new GoogleTranslateSearch();
+				case 'g':
+						 searchable = new GoogleTranslateSearch();
 					   break;
-				case 'd' : searchable = new DummySearch();
-					   break;
-				default : //TODO error message
+				case 'd':
+						 searchable = new DummySearch();
+						 break;
+				default:
 					   std::cout << "Error: Flag "
 						   << "\"" << argv[1][i] << "\""
 						   << " dose not exist!" << std::endl;
 					   return 1;
 			}
-			std::cout << "flag: " << argv[1][i] << " word: " << argv[2] << std::endl;
-
-			std::cout << "Searching" << std::endl;
 			searchable->search(argv[2]);
-			std::cout << "Retrieving results" << std::endl;
-			std::cout << searchable->getResult() << std::endl;
-			std::cout << "Deleting searchable" << std::endl;
+			cout << searchable->getResult() << endl;
 			delete searchable;
-			std::cout << "Done" << std::endl;
 			i++;
 		}
 		if (i == 1)
 		{
-			//TODO error message
-			std::cout << "Error: No flags!" << std::endl;
+			cout << "Error: No flags!" << endl;
 		}
 	}
 	else
 	{
-		//TODO error message
 		std::cout << "Usage: " << argv[0] << "-[tgd] Search_word" << std::endl;
 		return 1;
 	}
