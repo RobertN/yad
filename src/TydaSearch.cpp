@@ -66,18 +66,20 @@ int TydaSearch::search(std::string search_string)
 	boost::sregex_token_iterator itr(txt.begin(), txt.end(), exp, subs);
 	boost::sregex_token_iterator end;
 	m_result_builder.clear();
+    int type_synonym = m_result_builder.addResultType("Synonym");
+    int type_translation = m_result_builder.addResultType("Translation");
 
 	for (;itr != end; ++itr)
 	{
 		if (*itr == "href=\"/search/")
 		{
 			if (++itr != end)
-				m_result_builder.addResult("Synonym", *itr);
+				m_result_builder.addResult(type_synonym, *itr);
 		}
 		else if (*itr == "id=\"tyda_transR")
 		{
 			if (++itr != end)
-				m_result_builder.addResult("Translation", *itr);
+				m_result_builder.addResult(type_translation, *itr);
 		}
 	}
 	return EXIT_SUCCESS;
