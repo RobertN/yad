@@ -1,11 +1,9 @@
 #include <iostream>
-#include <cstdio>
-#include <cstdlib>
 #include "NetworkConnection.hpp"
 #include "TydaSearch.hpp"
 #include "GoogleTranslateSearch.hpp"
 #include "DummySearch.hpp"
-#include "debug.h"
+#include "debug.hpp"
 using std::cout;
 using std::endl;
 
@@ -14,10 +12,8 @@ int main(int argc, char *argv[])
 	debug("Starting yad");
 
 	ISearchable *searchable;
-	// TODO: Check what site we should search from
 	if (argc == 2)
 	{
-		//TODO Standard search
 		//TODO: should we really have dynamic allocation???
 		searchable = new TydaSearch();
 		searchable->search(argv[1]);
@@ -26,11 +22,9 @@ int main(int argc, char *argv[])
 	}
 	else if (argc == 3)
 	{
-		//TODO Check flags for search options
 		if (argv[1][0] != '-')
 		{
-			//TODO error message
-			cout << "Error: Too many arguments or no flags!" << endl;
+            std::cerr << "Error: Too many arguments or no flags!" << endl;
 			return 1;
 		}
 		int i = 1;
@@ -48,9 +42,9 @@ int main(int argc, char *argv[])
 						 searchable = new DummySearch();
 						 break;
 				default:
-					   std::cout << "Error: Flag "
+					   std::cerr << "Error: Flag "
 						   << "\"" << argv[1][i] << "\""
-						   << " dose not exist!" << std::endl;
+						   << " dose not exist!" << endl;
 					   return 1;
 			}
 			searchable->search(argv[2]);
@@ -65,7 +59,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		std::cout << "Usage: " << argv[0] << "-[tgd] Search_word" << std::endl;
+		cout << "Usage: " << argv[0] << "-[tgd] Search_word" << endl;
 		return 1;
 	}
 
