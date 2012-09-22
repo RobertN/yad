@@ -15,14 +15,14 @@ GoogleTranslateSearch::~GoogleTranslateSearch()
 {
 }
 
-int GoogleTranslateSearch::makeSearchRequest(std::string search_string)
+bool GoogleTranslateSearch::makeSearchRequest(std::string search_string)
 {
 	GoogleTranslateQueryBuilder builder;
 	builder.setSearchKey(search_string);
 	if (m_connection.send(builder.generateQuery()) > 0)
-		return 1;
+		return true;
 	else
-		return -1;
+		return false;
 }
 
 std::string GoogleTranslateSearch::retrieveSearchResponse()

@@ -15,14 +15,14 @@ TydaSearch::~TydaSearch()
 {
 }
 
-int TydaSearch::makeSearchRequest(std::string search_string)
+bool TydaSearch::makeSearchRequest(std::string search_string)
 {
 	TydaQueryBuilder tyda_builder;
 	tyda_builder.setSearchKey(search_string);
 	if (m_connection.send(tyda_builder.generateQuery()) > 0)
-		return 1;
+		return true;
 	else
-		return -1;
+		return false;
 }
 
 std::string TydaSearch::retrieveSearchResponse()

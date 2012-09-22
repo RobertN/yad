@@ -16,7 +16,7 @@ public:
 	std::string getResult();
 
 private:
-	int makeSearchRequest(std::string search_string);
+	bool makeSearchRequest(std::string search_string);
 	std::string retrieveSearchResponse();
 
 	std::string m_results;
