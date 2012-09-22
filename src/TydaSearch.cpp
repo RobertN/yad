@@ -52,32 +52,28 @@ int TydaSearch::search(std::string search_string)
 	std::string txt = retrieveSearchResponse();
 
 	/* Find synonyms and translations
-     *
-     * <a href="/search/hejsan">hejsan</a>
-     * const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">)([^<]+)<"");
-     *
-     * <a href="/search/hallo?w_lang=en"><span class="tyda_assoc_word">hallo</span>
-     * const boost::regex exp("(<span class=\"tyda_assoc_word\">)([^<]+)<"");
-     *
+	 *
+	 * <a href="/search/hejsan">hejsan</a>
+	 * const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">)([^<]+)<"");
+	 *
+	 * <a href="/search/hallo?w_lang=en"><span class="tyda_assoc_word">hallo</span>
+	 * const boost::regex exp("(<span class=\"tyda_assoc_word\">)([^<]+)<"");
+	 *
 	 */
-    const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">|<span class=\"tyda_assoc_word\">)([^<]+)<");
+	const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">|<span class=\"tyda_assoc_word\">)([^<]+)<");
 	int const subs[] = {1, 2};
 	boost::sregex_token_iterator itr(txt.begin(), txt.end(), exp, subs);
 	boost::sregex_token_iterator end;
 	m_result_builder.clear();
-    int type_synonym = m_result_builder.addResultType("Synonym");
-    int type_translation = m_result_builder.addResultType("Translation");
+	int type_synonym = m_result_builder.addResultType("Synonym");
+	int type_translation = m_result_builder.addResultType("Translation");
 
 	for (;itr != end; ++itr)
 	{
 		if (*itr == "<span class=\"tyda_assoc_word\">")
-		{
 			m_result_builder.addResult(type_translation, *++itr);
-		}
         else 
-		{
 			m_result_builder.addResult(type_synonym, *++itr);
-		}
 	}
 	return EXIT_SUCCESS;
 }
