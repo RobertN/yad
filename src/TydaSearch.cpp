@@ -51,17 +51,16 @@ int TydaSearch::search(std::string search_string)
 
 	std::string txt = retrieveSearchResponse();
 
-	/*
-	//TODO: should this be in getResult() ?
-	//<a id="tyda_transR7" href="/search/hey">hey</a>
-	//const boost::regex exp("<a id=\"(tyda_transR[^\"]*)\" href=\"[^\"]*\">([^<]*)");
-
-	//<a href="/search/goddag">goddag</a>
-	//const boost::regex exp("<a href=\"\\/(search)\\/[^\"]*\">([^<]*)");
-	// Find synonyms and translations
+	/* Find synonyms and translations
+     *
+     * <a id="tyda_transR7" href="/search/hey">hey</a>
+     * const boost::regex exp("<a id=\"(tyda_transR[^\"]*)\" href=\"[^\"]*\">([^<]*)");
+     *
+     * <a href="/search/goddag">goddag</a>
+     * const boost::regex exp("<a href=\"\\/(search)\\/[^\"]*\">([^<]*)");
+     *
 	 */
-	const boost::regex exp("<a (id=\"tyda_transR|href=\"\\/search\\/)[^\"]*\"[^>]*>([^<]*)<");
-
+    const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">|<span class=\"tyda_assoc_word\">)([^<]+)<");
 	int const subs[] = {1, 2};
 	boost::sregex_token_iterator itr(txt.begin(), txt.end(), exp, subs);
 	boost::sregex_token_iterator end;
@@ -69,15 +68,15 @@ int TydaSearch::search(std::string search_string)
 
 	for (;itr != end; ++itr)
 	{
-		if (*itr == "href=\"/search/")
-		{
-			if (++itr != end)
-				m_result_builder.addResult("Synonym", *itr);
-		}
-		else if (*itr == "id=\"tyda_transR")
+		if (*itr == "<span class=\"tyda_assoc_word\">")
 		{
 			if (++itr != end)
 				m_result_builder.addResult("Translation", *itr);
+		}
+        else 
+		{
+			if (++itr != end)
+				m_result_builder.addResult("Synonym", *itr);
 		}
 	}
 	return EXIT_SUCCESS;
