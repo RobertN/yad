@@ -1,1 +1,11 @@
 YAD - Yet Another Dictionary
+
+YAD implements a easy way to search for synonyms and translations
+with a little help from tyda.se. It is implemented as a CLI utility
+and example usage could look like this:
+
+	$ yad bok
+	Synonym:  skrift, publikation, bokverk, hardwood
+	Translation:  book, volumen, codex, beech, Fagus sylvatica, Fagus sylvatica
+
+
