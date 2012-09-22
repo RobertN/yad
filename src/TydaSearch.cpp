@@ -53,11 +53,11 @@ int TydaSearch::search(std::string search_string)
 
 	/* Find synonyms and translations
      *
-     * <a id="tyda_transR7" href="/search/hey">hey</a>
-     * const boost::regex exp("<a id=\"(tyda_transR[^\"]*)\" href=\"[^\"]*\">([^<]*)");
+     * <a href="/search/hejsan">hejsan</a>
+     * const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">)([^<]+)<"");
      *
-     * <a href="/search/goddag">goddag</a>
-     * const boost::regex exp("<a href=\"\\/(search)\\/[^\"]*\">([^<]*)");
+     * <a href="/search/hallo?w_lang=en"><span class="tyda_assoc_word">hallo</span>
+     * const boost::regex exp("(<span class=\"tyda_assoc_word\">)([^<]+)<"");
      *
 	 */
     const boost::regex exp("(<a href=\"\\/search\\/[^\"]*\">|<span class=\"tyda_assoc_word\">)([^<]+)<");
