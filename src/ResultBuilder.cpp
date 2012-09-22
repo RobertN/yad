@@ -2,22 +2,45 @@
 
 #include <iostream>
 #include <sstream>
+using std::string;
+using std::endl;
+using std::vector;
+using std::stringstream;
 
-std::string ResultBuilder::getResultString() const
+string ResultBuilder::getResultString() const
 {
-	std::vector< ResultEntry >::const_iterator it = m_entries.begin();
-	std::stringstream result_stream;
-	for ( ; it != m_entries.end(); it++)
-		result_stream << m_result_types[(*it).first] << ": " << (*it).second << std::endl;
+	vector< ResultEntry >::const_iterator it = m_entries.begin();
+	stringstream result_stream;
+
+    bool first = true;
+    for (int i = 0; i < m_result_types.size(); i++)
+    {
+        result_stream << m_result_types[i] << ": ";
+        for (it = m_entries.begin(); it != m_entries.end(); it++)
+        {
+            if ((*it).first == i)
+            {
+                if (first)
+                {
+                    result_stream << " " << (*it).second;
+                    first = false;
+                }
+                else
+                    result_stream << ", " << (*it).second;
+            }
+        }
+        result_stream << endl;
+        first = true;
+    }
 	return result_stream.str();
 }
 
-void ResultBuilder::addResult(int type, const std::string& value)
+void ResultBuilder::addResult(int type, const string& value)
 {
 	m_entries.push_back(make_pair(type, value));
 }
 
-int ResultBuilder::addResultType(const std::string& description)
+int ResultBuilder::addResultType(const string& description)
 {
     m_result_types.push_back(description);
     return m_result_types.size() - 1;
