@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include "boost/regex.hpp"
 #include "ISearchable.hpp"
 #include "TydaSearch.hpp"
