@@ -1,16 +1,19 @@
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
 #include "NetworkConnection.hpp"
 #include "TydaSearch.hpp"
 #include "GoogleTranslateSearch.hpp"
 #include "DummySearch.hpp"
+#include "debug.h"
 using std::cout;
 using std::endl;
 
 int main(int argc, char *argv[])
 {
+	debug("Starting yad");
 
 	ISearchable *searchable;
-
 	// TODO: Check what site we should search from
 	if (argc == 2)
 	{
@@ -36,8 +39,8 @@ int main(int argc, char *argv[])
 			switch(argv[1][i])
 			{
 				case 't':
-								searchable = new TydaSearch();
-					   break;
+					searchable = new TydaSearch();
+					break;
 				case 'g':
 						 searchable = new GoogleTranslateSearch();
 					   break;
