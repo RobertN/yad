@@ -8,76 +8,76 @@
 #include <unistd.h>
 
 NetworkConnection::NetworkConnection()
-	: m_connected(false)
+    : m_connected(false)
 {
 }
 
 NetworkConnection::~NetworkConnection()
 {
-	if (m_connected)
-	{
-		close(m_socket);
-		m_connected = false;
-	}
+    if (m_connected)
+    {
+        close(m_socket);
+        m_connected = false;
+    }
 }
 
 bool NetworkConnection::establish(std::string hostname, unsigned int port)
 {
 
-	struct sockaddr_in addr;
-	struct hostent *hp;
+    struct sockaddr_in addr;
+    struct hostent *hp;
 
-	hp = gethostbyname(hostname.c_str());
-	if (!hp)
-	{
-		perror("gethostbyname");
+    hp = gethostbyname(hostname.c_str());
+    if (!hp)
+    {
+        perror("gethostbyname");
 
-		return false;
-	}
+        return false;
+    }
 
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr = ((struct in_addr *)(hp->h_addr))->s_addr;
-	addr.sin_port = htons(port);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = ((struct in_addr *)(hp->h_addr))->s_addr;
+    addr.sin_port = htons(port);
 
-	m_socket = socket(AF_INET, SOCK_STREAM, 0);
-	if (m_socket == -1)
-	{
-		perror("socket");
-		return false;
-	}
+    m_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (m_socket == -1)
+    {
+        perror("socket");
+        return false;
+    }
 
-	int connected = connect(m_socket, (struct sockaddr*) &addr, sizeof(addr));
-	if (connected == -1)
-	{
-		perror("connect");
-		return false;
-	}
-	m_connected = true;
-	return true;
+    int connected = connect(m_socket, (struct sockaddr*) &addr, sizeof(addr));
+    if (connected == -1)
+    {
+        perror("connect");
+        return false;
+    }
+    m_connected = true;
+    return true;
 }
 
 size_t NetworkConnection::send(std::string message)
 {
-	if (!connected())
-		return NOT_CONNECTED;
+    if (!connected())
+        return NOT_CONNECTED;
 
-	int sent_bytes = ::send(m_socket, message.c_str(), message.length(), 0);
-	if (sent_bytes == -1)
-	{
-		perror("send");
-		return -1;
-	}
-	return sent_bytes;
+    int sent_bytes = ::send(m_socket, message.c_str(), message.length(), 0);
+    if (sent_bytes == -1)
+    {
+        perror("send");
+        return -1;
+    }
+    return sent_bytes;
 }
 
 std::string NetworkConnection::recv(size_t bytes)
 {
-	char buf[bytes];
-	int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
-	if (recvd_bytes == -1)
-	{
-		perror("recv");
-		return std::string("");
-	}
-	return std::string(buf);
+    char buf[bytes];
+    int recvd_bytes = ::recv(m_socket, &buf, bytes, 0);
+    if (recvd_bytes == -1)
+    {
+        perror("recv");
+        return std::string("");
+    }
+    return std::string(buf);
 }

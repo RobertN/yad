@@ -4,12 +4,12 @@
 
 DummySearch::DummySearch()
 {
-	std::cout << "DummySearch()" << std::endl;
+    std::cout << "DummySearch()" << std::endl;
 }
 
 DummySearch::~DummySearch()
 {
-	std::cout << "~DummySearch()" << std::endl;
+    std::cout << "~DummySearch()" << std::endl;
 }
 
 int DummySearch::search(const int argc, const char *argv[])
@@ -20,11 +20,11 @@ int DummySearch::search(const int argc, const char *argv[])
     else
         return 1;
 
-	std::cout << "Searching for: " << search_string << std::endl;
-	return 0;
+    std::cout << "Searching for: " << search_string << std::endl;
+    return 0;
 }
 
 std::string DummySearch::getResult()
 {
-	return std::string("results....");
+    return std::string("results....");
 }

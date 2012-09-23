@@ -9,27 +9,27 @@
 class TydaSearch: public ISearchable
 {
 public:
-	TydaSearch();
-	~TydaSearch();
+    TydaSearch();
+    ~TydaSearch();
 
-	int search(const int argc, const char *argv[]);
-	std::string getResult();
+    int search(const int argc, const char *argv[]);
+    std::string getResult();
 
 private:
     bool makeSearchRequest(std::string search_string);
-	std::string retrieveSearchResponse();
+    std::string retrieveSearchResponse();
 
-	std::string m_results;
-	NetworkConnection m_connection;
-	ResultBuilder m_result_builder;
+    std::string m_results;
+    NetworkConnection m_connection;
+    ResultBuilder m_result_builder;
 };
 
 class TydaQueryBuilder
-	: public QueryBuilder
+    : public QueryBuilder
 {
 private:
-	virtual std::string generateHeaders();
-	virtual std::string generateRequestLine();
+    virtual std::string generateHeaders();
+    virtual std::string generateRequestLine();
 };
 
 #endif

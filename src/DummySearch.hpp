@@ -5,12 +5,12 @@
 
 class DummySearch : public ISearchable
 {
-	public:
-		DummySearch();
-		~DummySearch();
+public:
+    DummySearch();
+    ~DummySearch();
 
-	    int search(const int argc, const char *argv[]);
-		std::string getResult();
+    int search(const int argc, const char *argv[]);
+    std::string getResult();
 };
 
 #endif

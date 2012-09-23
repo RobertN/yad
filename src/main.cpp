@@ -12,12 +12,12 @@ using std::endl;
 
 void help(std::string pName)
 {
-	cout << "Usage:\t" << pName << " -[tgd] Search_word" << endl
-	           << "\t" << pName << " Search_word" << endl
-	           << "\t" << pName << " -g \"Sentence\"" << endl
-	           << "\t" << pName << " -g From_lang_code To_lang_code \"Sentence\"" << endl
-	           << "\t" << pName << " From_lang_code To_lang_code \"Sentence\"" << endl
-	           << "\t" << pName << " -[vhl]" << endl << endl
+    cout << "Usage:\t" << pName << " -[tgd] Search_word" << endl
+               << "\t" << pName << " Search_word" << endl
+               << "\t" << pName << " -g \"Sentence\"" << endl
+               << "\t" << pName << " -g From_lang_code To_lang_code \"Sentence\"" << endl
+               << "\t" << pName << " From_lang_code To_lang_code \"Sentence\"" << endl
+               << "\t" << pName << " -[vhl]" << endl << endl
          << "Use flag \"l\" for display language codes: " << pName << " -l" << endl << endl;
 }
 
@@ -34,13 +34,13 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	debug("Starting YAD");
+    debug("Starting YAD");
 
-	if (argc < 2)
-	{
+    if (argc < 2)
+    {
         help(argv[0]);
-		return -1;
-	}
+        return -1;
+    }
 
     if (argv[1][0] != '-')
     {   // Without flags
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         }
     }
 
-	debug("Ending YAD");
+    debug("Ending YAD");
 
-	return 0;
+    return 0;
 }
