@@ -14,6 +14,7 @@ public:
 
 	int search(const int argc, const char *argv[]);
 	std::string getResult();
+    static void printLangHelp();
 
 private:
     bool makeSearchRequest(std::string search_string, std::string fromLang, std::string toLang);

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include "boost/regex.hpp"
+#include <boost/regex.hpp>
 #include "ISearchable.hpp"
 #include "GoogleTranslateSearch.hpp"
 #include "QueryBuilder.hpp"
@@ -62,7 +62,7 @@ int GoogleTranslateSearch::search(const int argc, const char *argv[])
         return 1;
 
     std::replace(search_string.begin(), search_string.end(), ' ', '+');
-	
+
     if (!m_connection.establish("translate.google.se", 80))
 	{
 		std::cerr << "Failed to establish connection to: translate.google.se" << std::endl;
@@ -108,9 +108,6 @@ std::string GoogleTranslateQueryBuilder::generateHeaders()
 
 std::string GoogleTranslateQueryBuilder::generateRequestLine()
 {
-    //TODO: How to select language from program argument?
-    // ex: ./a.out -g --sv2en hej
-
 	std::string request_line;
 	request_line  = "GET /m?hl=en&sl=";
     request_line += getFromLang();
@@ -122,4 +119,77 @@ std::string GoogleTranslateQueryBuilder::generateRequestLine()
 	request_line += "\r\n";
 
     return request_line;
+}
+
+void GoogleTranslateSearch::printLangHelp()
+{
+    std::cout << ""
+        << "\t" << "Code]" << "\t" << "Language\n"
+        << "\t" << "auto" << "\t" << "Detect language\n"
+        << "\t" << "af" << "\t" << "Afrikaans\n"
+        << "\t" << "sq" << "\t" << "Albanian\n"
+        << "\t" << "ar" << "\t" << "Arabic\n"
+        << "\t" << "hy" << "\t" << "Armenian\n"
+        << "\t" << "az" << "\t" << "Azerbaijani\n"
+        << "\t" << "eu" << "\t" << "Basque\n"
+        << "\t" << "be" << "\t" << "Belarusian\n"
+        << "\t" << "bn" << "\t" << "Bengali\n"
+        << "\t" << "bg" << "\t" << "Bulgarian\n"
+        << "\t" << "ca" << "\t" << "Catalan\n"
+        << "\t" << "zh-CN" << "\t" << "Chinese\n"
+        << "\t" << "hr" << "\t" << "Croatian\n"
+        << "\t" << "cs" << "\t" << "Czech\n"
+        << "\t" << "da" << "\t" << "Danish\n"
+        << "\t" << "nl" << "\t" << "Dutch\n"
+        << "\t" << "en" << "\t" << "English\n"
+        << "\t" << "eo" << "\t" << "Esperanto\n"
+        << "\t" << "et" << "\t" << "Estonian\n"
+        << "\t" << "tl" << "\t" << "Filipino\n"
+        << "\t" << "fi" << "\t" << "Finnish\n"
+        << "\t" << "fr" << "\t" << "French\n"
+        << "\t" << "gl" << "\t" << "Galician\n"
+        << "\t" << "ka" << "\t" << "Georgian\n"
+        << "\t" << "de" << "\t" << "German\n"
+        << "\t" << "el" << "\t" << "Greek\n"
+        << "\t" << "gu" << "\t" << "Gujarati\n"
+        << "\t" << "ht" << "\t" << "HaitianCreole\n"
+        << "\t" << "iw" << "\t" << "Hebrew\n"
+        << "\t" << "hi" << "\t" << "Hindi\n"
+        << "\t" << "hu" << "\t" << "Hungarian\n"
+        << "\t" << "is" << "\t" << "Icelandic\n"
+        << "\t" << "id" << "\t" << "Indonesian\n"
+        << "\t" << "ga" << "\t" << "Irish\n"
+        << "\t" << "it" << "\t" << "Italian\n"
+        << "\t" << "ja" << "\t" << "Japanese\n"
+        << "\t" << "kn" << "\t" << "Kannada\n"
+        << "\t" << "ko" << "\t" << "Korean\n"
+        << "\t" << "lo" << "\t" << "Lao\n"
+        << "\t" << "la" << "\t" << "Latin\n"
+        << "\t" << "lv" << "\t" << "Latvian\n"
+        << "\t" << "lt" << "\t" << "Lithuanian\n"
+        << "\t" << "mk" << "\t" << "Macedonian\n"
+        << "\t" << "ms" << "\t" << "Malay\n"
+        << "\t" << "mt" << "\t" << "Maltese\n"
+        << "\t" << "no" << "\t" << "Norwegian\n"
+        << "\t" << "fa" << "\t" << "Persian\n"
+        << "\t" << "pl" << "\t" << "Polish\n"
+        << "\t" << "pt" << "\t" << "Portuguese\n"
+        << "\t" << "ro" << "\t" << "Romanian\n"
+        << "\t" << "ru" << "\t" << "Russian\n"
+        << "\t" << "sr" << "\t" << "Serbian\n"
+        << "\t" << "sk" << "\t" << "Slovak\n"
+        << "\t" << "sl" << "\t" << "Slovenian\n"
+        << "\t" << "es" << "\t" << "Spanish\n"
+        << "\t" << "sw" << "\t" << "Swahili\n"
+        << "\t" << "sv" << "\t" << "Swedish\n"
+        << "\t" << "ta" << "\t" << "Tamil\n"
+        << "\t" << "te" << "\t" << "Telugu\n"
+        << "\t" << "th" << "\t" << "Thai\n"
+        << "\t" << "tr" << "\t" << "Turkish\n"
+        << "\t" << "uk" << "\t" << "Ukrainian\n"
+        << "\t" << "ur" << "\t" << "Urdu\n"
+        << "\t" << "vi" << "\t" << "Vietnamese\n"
+        << "\t" << "cy" << "\t" << "Welsh\n"
+        << "\t" << "yi" << "\t" << "Yiddish\n"
+        << std::endl;
 }

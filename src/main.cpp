@@ -12,17 +12,18 @@ using std::endl;
 
 void help(std::string pName)
 {
-	cout << "Usage:\t" << pName << " -[tgdvh] Search_word" << endl
+	cout << "Usage:\t" << pName << " -[tgd] Search_word" << endl
 	           << "\t" << pName << " Search_word" << endl
 	           << "\t" << pName << " -g \"Sentence\"" << endl
-	           << "\t" << pName << " -g From_lang To_lang  \"Sentence\"" << endl
-	           << "\t" << pName << " From_lang To_lang  \"Sentence\"" << endl
-	           << "\t" << pName << " -[vh]" << endl << endl;
+	           << "\t" << pName << " -g From_lang_code To_lang_code \"Sentence\"" << endl
+	           << "\t" << pName << " From_lang_code To_lang_code \"Sentence\"" << endl
+	           << "\t" << pName << " -[vhl]" << endl << endl
+         << "Use flag \"l\" for display language codes: " << pName << " -l" << endl << endl;
 }
 
 void doSearch(ISearchable *searchable, int argc, char *argv[])
 {
-    int exitCode = searchable->search(argc, (const char **)argv); //TODO: change to C++ conversion
+    int exitCode = searchable->search(argc, const_cast<const char **>(argv));
     if (exitCode == 0)
         cout << searchable->getResult() << endl;
     else
@@ -72,9 +73,13 @@ int main(int argc, char *argv[])
                     help(argv[0]);
                     break;
 
+                case 'l':
+                    GoogleTranslateSearch::printLangHelp();
+                    break;
+
                 case 'V':
                 case 'v':
-                    cout << "YAD version: " << VERSION << endl;
+                    cout << "yad version: " << VERSION << endl;
                     break;
 
                 default:
