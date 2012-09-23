@@ -46,6 +46,12 @@ int GoogleTranslateSearch::search(const int argc, const char *argv[])
 
     if (argc == 3)
         search_string = argv[2];
+    else if (argc == 4)
+    {
+        fromLang = argv[1];
+        toLang = argv[2];
+        search_string = argv[3];
+    }
     else if (argc == 5)
     {
         fromLang = argv[2];

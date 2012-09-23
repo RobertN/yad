@@ -12,7 +12,12 @@ using std::endl;
 
 void help(std::string pName)
 {
-	cout << "Usage: " << pName << " -[tgdvh] Search_word" << endl;
+	cout << "Usage:\t" << pName << " -[tgdvh] Search_word" << endl
+	           << "\t" << pName << " Search_word" << endl
+	           << "\t" << pName << " -g \"Sentence\"" << endl
+	           << "\t" << pName << " -g From_lang To_lang  \"Sentence\"" << endl
+	           << "\t" << pName << " From_lang To_lang  \"Sentence\"" << endl
+	           << "\t" << pName << " -[vh]" << endl << endl;
 }
 
 void doSearch(ISearchable *searchable, int argc, char *argv[])
@@ -21,7 +26,7 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
     if (exitCode == 0)
         cout << searchable->getResult() << endl;
     else
-        std::cerr << "Search exited with exit code: " << exitCode << endl;
+        std::cerr << "Error: Search exited with exit code: " << exitCode << endl;
 
     delete searchable;
 }
@@ -37,9 +42,14 @@ int main(int argc, char *argv[])
 	}
 
     if (argv[1][0] != '-')
-        doSearch(new TydaSearch(), argc, argv);
+    {   // Without flags
+        if (argc == 4)
+            doSearch(new GoogleTranslateSearch(), argc, argv);  // ./yad sv en hej
+        else
+            doSearch(new TydaSearch(), argc, argv);             // ./yad hej
+    }
     else
-    {
+    {   // With flags
         char *flags = argv[1];
         int i = 1;
         while (flags[i] != '\0')
@@ -64,7 +74,7 @@ int main(int argc, char *argv[])
 
                 case 'V':
                 case 'v':
-                    cout << "Version: " << VERSION << endl;
+                    cout << "YAD version: " << VERSION << endl;
                     break;
 
                 default:
