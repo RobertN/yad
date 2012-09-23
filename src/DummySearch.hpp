@@ -9,7 +9,7 @@ class DummySearch : public ISearchable
 		DummySearch();
 		~DummySearch();
 
-		int search(std::string search_string);
+	    int search(const int argc, const char *argv[]);
 		std::string getResult();
 };
 

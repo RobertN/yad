@@ -5,9 +5,10 @@
 
 class ISearchable
 {
-	public:
-		virtual int search(std::string search_string) = 0;
-		virtual std::string getResult() = 0;
+public:
+    virtual int search(const int argc, const char *argv[]) = 0;
+    virtual std::string getResult() = 0;
+    virtual ~ISearchable() {}
 };
 
 #endif

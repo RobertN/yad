@@ -12,11 +12,11 @@ public:
 	TydaSearch();
 	~TydaSearch();
 
-	int search(std::string search_string);
+	int search(const int argc, const char *argv[]);
 	std::string getResult();
 
 private:
-	bool makeSearchRequest(std::string search_string);
+    bool makeSearchRequest(std::string search_string);
 	std::string retrieveSearchResponse();
 
 	std::string m_results;

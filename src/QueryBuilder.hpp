@@ -11,7 +11,7 @@ public:
 	std::string generateQuery();
 
 protected:
-	std::string getSearchKey() { return m_search_key; }
+	std::string getSearchKey() const { return m_search_key; }
 
 private:
 	virtual std::string generateHeaders();

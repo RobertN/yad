@@ -35,18 +35,26 @@ std::string TydaSearch::retrieveSearchResponse()
 	return buffer.str();
 }
 
-int TydaSearch::search(std::string search_string)
+int TydaSearch::search(const int argc, const char *argv[])
 {
+    std::string search_string;
+    if (argc == 2)
+        search_string = argv[1];
+    else if (argc == 3)
+        search_string = argv[2];
+    else
+        return 1;
+
 	if (!m_connection.establish("tyda.se", 80))
 	{
 		std::cerr << "Failed to establish connection to: tyda.se" << std::endl;
-		return EXIT_FAILURE;
+		return 2;
 	}
 
 	if (!makeSearchRequest(search_string))
 	{
 		std::cerr << "Failed to perform search request" << std::endl;
-		return EXIT_FAILURE;
+		return 3;
 	}
 
 	std::string txt = retrieveSearchResponse();
@@ -75,7 +83,7 @@ int TydaSearch::search(std::string search_string)
         else 
 			m_result_builder.addResult(type_synonym, *++itr);
 	}
-	return EXIT_SUCCESS;
+	return 0;
 }
 
 std::string TydaSearch::getResult()

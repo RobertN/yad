@@ -12,11 +12,11 @@ public:
 	GoogleTranslateSearch();
 	~GoogleTranslateSearch();
 
-	int search(std::string search_string);
+	int search(const int argc, const char *argv[]);
 	std::string getResult();
 
 private:
-	bool makeSearchRequest(std::string search_string);
+    bool makeSearchRequest(std::string search_string, std::string fromLang, std::string toLang);
 	std::string retrieveSearchResponse();
 
 	std::string m_results;
@@ -24,12 +24,22 @@ private:
 	ResultBuilder m_result_builder;
 };
 
-class GoogleTranslateQueryBuilder
-	: public QueryBuilder
+class GoogleTranslateQueryBuilder: public QueryBuilder
 {
+public:
+    void setFromLang(std::string fromLang){ m_fromLang = fromLang; }
+    void setToLang(std::string toLang){ m_toLang = toLang; }
+
+protected:
+    std::string getToLang() const { return m_toLang; }
+    std::string getFromLang() const { return m_fromLang; }
+
 private:
 	virtual std::string generateHeaders();
 	virtual std::string generateRequestLine();
+
+    std::string m_fromLang;
+    std::string m_toLang;
 };
 
 #endif

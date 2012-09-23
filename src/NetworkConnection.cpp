@@ -23,7 +23,6 @@ NetworkConnection::~NetworkConnection()
 
 bool NetworkConnection::establish(std::string hostname, unsigned int port)
 {
-	fprintf(stderr, "NetworkConnection::establish\n");
 
 	struct sockaddr_in addr;
 	struct hostent *hp;
