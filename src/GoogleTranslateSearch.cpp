@@ -100,8 +100,8 @@ std::string GoogleTranslateSearch::getResult()
 void GoogleTranslateSearch::printLangHelp()
 {
     std::cout << ""
-        << "\t" << "Code" << "\t" << "Language\n"
-        << "\t" << "auto" << "\t" << "Detect language\n"
+        << "\t" << "CODE" << "\t" << "LANGUAGE\n"
+        << "\t" << "auto" << "\t" << "Auto Detect\n"
         << "\t" << "af" << "\t" << "Afrikaans\n"
         << "\t" << "sq" << "\t" << "Albanian\n"
         << "\t" << "ar" << "\t" << "Arabic\n"
