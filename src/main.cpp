@@ -34,7 +34,7 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	debug("Starting yad");
+	debug("Starting YAD");
 
 	if (argc < 2)
 	{
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
                 case 'V':
                 case 'v':
-                    cout << "yad version: " << VERSION << endl;
+                    cout << "YAD version: " << VERSION << endl;
                     break;
 
                 default:
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         }
     }
 
-	debug("Ending yad");
+	debug("Ending YAD");
 
 	return 0;
 }
