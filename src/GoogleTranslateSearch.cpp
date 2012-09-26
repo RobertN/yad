@@ -41,7 +41,7 @@ std::string GoogleTranslateSearch::retrieveSearchResponse()
 int GoogleTranslateSearch::search(const int argc, const char *argv[])
 {
     std::string search_string;
-    std::string fromLang("sv");
+    std::string fromLang("auto");
     std::string toLang("en");
 
     if (argc == 3)
@@ -100,8 +100,8 @@ std::string GoogleTranslateSearch::getResult()
 void GoogleTranslateSearch::printLangHelp()
 {
     std::cout << ""
-        << "\t" << "Code]" << "\t" << "Language\n"
-        << "\t" << "auto" << "\t" << "Detect language\n"
+        << "\t" << "CODE" << "\t" << "LANGUAGE\n"
+        << "\t" << "auto" << "\t" << "Auto Detect\n"
         << "\t" << "af" << "\t" << "Afrikaans\n"
         << "\t" << "sq" << "\t" << "Albanian\n"
         << "\t" << "ar" << "\t" << "Arabic\n"
