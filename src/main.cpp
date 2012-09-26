@@ -10,15 +10,15 @@
 using std::cout;
 using std::endl;
 
-void help(std::string pName)
+void help(const std::string& name)
 {
-    cout << "Usage:\t" << pName << " -[tgd] Search_word" << endl
-               << "\t" << pName << " Search_word" << endl
-               << "\t" << pName << " -g \"Sentence\"" << endl
-               << "\t" << pName << " -g From_lang_code To_lang_code \"Sentence\"" << endl
-               << "\t" << pName << " From_lang_code To_lang_code \"Sentence\"" << endl
-               << "\t" << pName << " -[vhl]" << endl << endl
-         << "Use flag \"l\" for display language codes: " << pName << " -l" << endl << endl;
+    cout << "Usage:\t" << name << " -[tgd] Search_word" << endl
+               << "\t" << name << " Search_word" << endl
+               << "\t" << name << " -g \"Sentence\"" << endl
+               << "\t" << name << " -g From_lang_code To_lang_code \"Sentence\"" << endl
+               << "\t" << name << " From_lang_code To_lang_code \"Sentence\"" << endl
+               << "\t" << name << " -[vhl]" << endl << endl
+         << "Use flag \"l\" for display language codes: " << name << " -l" << endl << endl;
 }
 
 void doSearch(ISearchable *searchable, int argc, char *argv[])
