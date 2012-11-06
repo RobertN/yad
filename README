@@ -9,4 +9,5 @@ and example usage could look like this:
     Translation:  book, volumen, codex, beech, Fagus sylvatica, Fagus sylvatica
 
 For more information run:
+
     $ yad -h
