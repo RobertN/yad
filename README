@@ -8,4 +8,5 @@ and example usage could look like this:
     Synonym:  skrift, publikation, bokverk, hardwood
     Translation:  book, volumen, codex, beech, Fagus sylvatica, Fagus sylvatica
 
-
+For more information run:
+    $ yad -h
