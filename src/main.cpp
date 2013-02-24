@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "NetworkConnection.hpp"
 #include "TydaSearch.hpp"
 #include "GoogleTranslateSearch.hpp"
@@ -32,6 +33,43 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
     delete searchable;
 }
 
+void parseCommandLine(int argc, char *argv[])
+{
+    int ch;
+    while ((ch = getopt(argc, argv, "tgdhlVv")) != -1) {
+        switch (ch) {
+            case 't':
+                doSearch(new TydaSearch, argc, argv);
+                break;
+            case 'g':
+                doSearch(new GoogleTranslateSearch, argc, argv);
+                break;
+            case 'd':
+                doSearch(new DummySearch(), argc, argv);
+                break;
+
+            case 'h':
+                help(argv[0]);
+                break;
+
+            case 'l':
+                GoogleTranslateSearch::printLangHelp();
+                break;
+
+            case 'V':
+            case 'v':
+                cout << "YAD version: " << VERSION << endl;
+                break;
+
+            default:
+                std::cerr   << "Error: Flag "
+                    << "\"" << ch << "\""
+                    << " does not exist!" << endl;
+                return;
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     debug("Starting YAD");
@@ -49,50 +87,10 @@ int main(int argc, char *argv[])
         else
             doSearch(new TydaSearch(), argc, argv);             // ./yad hej
     }
-    else
-    {   // With flags
-        char *flags = argv[1];
-        int i = 1;
-        while (flags[i] != '\0')
-        {
-            switch(flags[i])
-            {
-                case 't':
-                    doSearch(new TydaSearch(), argc, argv);
-                    break;
-
-                case 'g':
-                    doSearch(new GoogleTranslateSearch(), argc, argv);
-                    break;
-
-                case 'd':
-                    doSearch(new DummySearch(), argc, argv);
-                    break;
-
-                case 'h':
-                    help(argv[0]);
-                    break;
-
-                case 'l':
-                    GoogleTranslateSearch::printLangHelp();
-                    break;
-
-                case 'V':
-                case 'v':
-                    cout << "YAD version: " << VERSION << endl;
-                    break;
-
-                default:
-                    std::cerr   << "Error: Flag "
-                                << "\"" << flags[i] << "\""
-                                << " dose not exist!" << endl;
-                    return -1;
-            }
-            i++;
-        }
+    else {
+        parseCommandLine(argc, argv);
     }
 
     debug("Ending YAD");
-
     return 0;
 }
