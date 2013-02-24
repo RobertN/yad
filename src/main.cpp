@@ -17,7 +17,6 @@ void help(const std::string& name)
                << "\t" << name << " Search_word" << endl
                << "\t" << name << " -g \"Sentence\"" << endl
                << "\t" << name << " -g From_lang_code To_lang_code \"Sentence\"" << endl
-               << "\t" << name << " From_lang_code To_lang_code \"Sentence\"" << endl
                << "\t" << name << " -[vhl]" << endl << endl
          << "Use flag \"l\" for display language codes: " << name << " -l" << endl << endl;
 }
@@ -33,25 +32,26 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
     delete searchable;
 }
 
-void parseCommandLine(int argc, char *argv[])
+void parseCommandLineAndSearch(int argc, char *argv[])
 {
     int ch;
-    while ((ch = getopt(argc, argv, "tghlVv")) != -1) {
+    ISearchable *searchable = 0;
+    bool search = true;
+    while ((ch = getopt(argc, argv, "tghlVva")) != -1) {
         switch (ch) {
             case 't':
-                doSearch(new TydaSearch, argc, argv);
+                searchable = new TydaSearch;
                 break;
             case 'g':
-                doSearch(new GoogleTranslateSearch, argc, argv);
+                searchable = new GoogleTranslateSearch;
                 break;
             case 'h':
                 help(argv[0]);
                 break;
-
             case 'l':
                 GoogleTranslateSearch::printLangHelp();
+                search = false;
                 break;
-
             case 'V':
             case 'v':
                 cout << "YAD version: " << VERSION << endl;
@@ -63,6 +63,13 @@ void parseCommandLine(int argc, char *argv[])
                     << " does not exist!" << endl;
                 return;
         }
+    }
+
+    if (searchable && search) {
+        doSearch(searchable, argc, argv);
+    } else if (!searchable && search) {
+        // Default option if no other search database has been selected.
+        doSearch(new TydaSearch, argc, argv); 
     }
 }
 
@@ -76,16 +83,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    if (argv[1][0] != '-')
-    {   // Without flags
-        if (argc == 4)
-            doSearch(new GoogleTranslateSearch(), argc, argv);  // ./yad sv en hej
-        else
-            doSearch(new TydaSearch(), argc, argv);             // ./yad hej
-    }
-    else {
-        parseCommandLine(argc, argv);
-    }
+    parseCommandLineAndSearch(argc, argv);
 
     debug("Ending YAD");
     return 0;
