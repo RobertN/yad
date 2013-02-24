@@ -36,7 +36,7 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
 void parseCommandLine(int argc, char *argv[])
 {
     int ch;
-    while ((ch = getopt(argc, argv, "tgdhlVv")) != -1) {
+    while ((ch = getopt(argc, argv, "tghlVv")) != -1) {
         switch (ch) {
             case 't':
                 doSearch(new TydaSearch, argc, argv);
@@ -44,10 +44,6 @@ void parseCommandLine(int argc, char *argv[])
             case 'g':
                 doSearch(new GoogleTranslateSearch, argc, argv);
                 break;
-            case 'd':
-                doSearch(new DummySearch(), argc, argv);
-                break;
-
             case 'h':
                 help(argv[0]);
                 break;
