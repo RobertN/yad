@@ -26,7 +26,7 @@ void doSearch(ISearchable *searchable, int argc, char *argv[])
 {
     int exitCode = searchable->search(argc, const_cast<const char **>(argv));
     if (exitCode == 0)
-        cout << searchable->getResult() << endl;
+        cout << searchable->getResult();
     else
         std::cerr << "Error: Search exited with exit code: " << exitCode << endl;
 
